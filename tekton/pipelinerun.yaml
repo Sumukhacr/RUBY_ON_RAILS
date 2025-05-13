@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: build-and-push-run
+spec:
+  pipelineRef:
+    name: build-and-push
+  workspaces:
+    - name: source
+      emptyDir: {}
+  params:
+    - name: IMAGE
+      value: docker.io/<DOCKERHUB_USERNAME>/myapp:latest
+  serviceAccountName: pipeline   # ensure this SA has access to dockerhub-creds
